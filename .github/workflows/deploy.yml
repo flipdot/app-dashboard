@@ -44,13 +44,5 @@ jobs:
 
       - name: Upload files via SFTP
         run: |
-          echo "$SFTP_PRIVATE_KEY" > sftp_private_key.pem
-          docker run --rm -v ${{ github.workspace }}:/app -w /app \
-            peaceiris/sftp-deploy:latest \
-            ${{ secrets.SFTP_USERNAME }} \
-            ${{ secrets.SFTP_SERVER }} \
-            ${{ secrets.SFTP_PORT }} \
-            /app/sftp_private_key.pem \
-            /app/dist \
-            ${{ secrets.SFTP_REMOTE_PATH }} \
-            --delete-remote-files true
+          echo "$SSH_PRIVATE_KEY" > sftp_private_key.pem
+          sftp -i sftp_private_key.pem -P $SFTP_PORT -r $SFTP_USERNAME@$SFTP_SERVER:/apps.flipdot.org/ ./dist
