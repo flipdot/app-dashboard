@@ -43,12 +43,11 @@ jobs:
           path: ./dist
 
       - name: Upload files via SFTP
-        uses: appleboy/scp-action@v0.1.5
+        uses: Dylan700/sftp-upload-action@latest
         with:
-          host: ${{ secrets.SFTP_SERVER }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SFTP_PORT }}
-          source: "./dist/*"
-          target: "/apps.flipdot.org/"
+          server: ${{secrets.SFTP_SERVER}}
+          username: ${{secrets.SFTP_USERNAME}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          port: ${{secrets.SFTP_PORT}}
+          uploads: |
+            ./dist/* => /apps.flipdot.org/
