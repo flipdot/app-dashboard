@@ -8,12 +8,15 @@
     "dev-public": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky",
+    "test": "echo \"Error: no tests yet specified but husky want's me to have a test command\" && exit 0"
   },
   "dependencies": {
     "@sentry/integrations": "^7.114.0",
     "@sentry/react": "^8.36.0",
     "@sentry/vite-plugin": "^2.22.6",
+    "husky": "^9.1.6",
     "oidc-client-ts": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
