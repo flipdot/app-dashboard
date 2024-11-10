@@ -49,5 +49,6 @@ jobs:
           username: ${{secrets.SFTP_USERNAME}}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           port: ${{secrets.SFTP_PORT}}
+          delete: 'true'
           uploads: |
             ./dist/* => /apps.flipdot.org/
