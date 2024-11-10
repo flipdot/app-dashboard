@@ -43,12 +43,11 @@ jobs:
           path: ./dist
 
       - name: Upload files via SFTP
-        uses: Dylan700/sftp-upload-action@latest
+        uses: milanmk/actions-file-deployer@master
         with:
-          server: ${{secrets.SFTP_SERVER}}
-          username: ${{secrets.SFTP_USERNAME}}
-          key: ${{secrets.SSH_PRIVATE_KEY}}
-          port: ${{secrets.SFTP_PORT}}
-          delete: 'false'  # Unable to delete existing files for /***/ before upload. Error: rmdir: Permission denied /***/
-          uploads: |
-            ./dist/* => /apps.flipdot.org/
+          remote-protocol: "sftp"
+          remote-host: ${{ secrets.SFTP_SERVER }}
+          remote-user: ${{ secrets.SFTP_USERNAME }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          local-path: "./dist"
+          remote-path: "/apps.flipdot.org"
