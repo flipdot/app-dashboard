@@ -1,9 +1,7 @@
-import flipdotLogo from './assets/flipdot.svg'
 import './App.css'
 // import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login.tsx";
-import {AuthProvider, useAuth} from "./AuthContext.tsx";
-import React from "react";
+import {AuthProvider} from "./AuthContext.tsx";
 import {Route, Routes} from "react-router-dom";
 import Home from "./Home.tsx";
 import RequireAuth from "./RequireAuth.tsx";

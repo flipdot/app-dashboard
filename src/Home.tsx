@@ -1,7 +1,6 @@
-import flipdotLogo from './assets/flipdot.svg'
 import './App.css'
+
 // import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import React from "react";
 
 
 function Home() {

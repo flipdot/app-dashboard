@@ -9,8 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky",
-    "test": "echo \"Error: no tests yet specified but husky want's me to have a test command\" && exit 0"
+    "prepare": "husky"
   },
   "dependencies": {
     "@sentry/integrations": "^7.114.0",
