@@ -1,21 +1,22 @@
 import {useAuth} from "./AuthContext.tsx";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function LoginCallback() {
     const auth = useAuth();
+    const navigate = useNavigate();
     const [error, setError] = useState<string | null>(null);
     auth.loginCallback().then(() => {
-            console.log("logged in");
+            navigate("/", {replace: true});
         }
     ).catch(
         (e) => {
-            // console.error(e);
-            setError(`Error: ${e.message}`);
+            navigate("/login", {replace: true});
         }
     );
     return <div>
         <p>Logging in…</p>
-        <pre>{error}</pre>
+        <pre className="error-box">{error}</pre>
     </div>;
 }
 

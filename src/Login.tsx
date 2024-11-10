@@ -1,10 +1,16 @@
 import flipdotLogo from './assets/flipdot.svg'
 import './App.css'
 import {useAuth} from "./AuthContext.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 function Login() {
     const auth = useAuth();
+    const navigate = useNavigate();
+
+    if (auth.user) {
+        navigate("/", {replace: true});
+    }
 
     return (
         <>
