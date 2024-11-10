@@ -19,9 +19,16 @@ function NavBar() {
     const rightItem = auth.user ? userMenu : loginButton;
     return (
         <nav className="navbar">
-            <Link to="/" className="logo"><img src={fdLogo} alt="small flipdot logo"/></Link>
+            <Link to="/" className="logo"><img src={fdLogo} alt="fd" onError={
+                (e) => {
+                    e.currentTarget.style.backgroundColor = "#f5c600";
+                }
+            } onLoad={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+            }}/></Link>
+            {/*<Link to="/" className="logo"><img src="broken" alt="fd"/></Link>*/}
             <ul className="nav-links">
-                <li><Link to="/">Home</Link></li>
+                {/*<li><Link to="/">Home</Link></li>*/}
                 {rightItem}
             </ul>
         </nav>
