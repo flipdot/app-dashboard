@@ -44,5 +44,5 @@ jobs:
 
       - name: Upload files via SFTP
         run: |
-          echo "$SSH_PRIVATE_KEY" > sftp_private_key.pem
-          sftp -i sftp_private_key.pem -P $SFTP_PORT -r $SFTP_USERNAME@$SFTP_SERVER:/apps.flipdot.org/ ./dist
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > sftp_private_key.pem
+          sftp -i sftp_private_key.pem -P ${{ secrets.SFTP_PORT }} -r ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_SERVER }}:/apps.flipdot.org/ ./dist
