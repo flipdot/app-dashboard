@@ -43,11 +43,14 @@ jobs:
           path: ./dist
 
       - name: Upload files via SFTP
-        uses: milanmk/actions-file-deployer@master
-        with:
-          remote-protocol: "sftp"
-          remote-host: ${{ secrets.SFTP_SERVER }}
-          remote-user: ${{ secrets.SFTP_USERNAME }}
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          local-path: "./dist"
-          remote-path: "/apps.flipdot.org"
+        run: |
+          echo "$SFTP_PRIVATE_KEY" > sftp_private_key.pem
+          docker run --rm -v ${{ github.workspace }}:/app -w /app \
+            peaceiris/sftp-deploy:latest \
+            ${{ secrets.SFTP_USERNAME }} \
+            ${{ secrets.SFTP_SERVER }} \
+            ${{ secrets.SFTP_PORT }} \
+            /app/sftp_private_key.pem \
+            /app/dist \
+            ${{ secrets.SFTP_REMOTE_PATH }} \
+            --delete-remote-files true
