@@ -10,14 +10,16 @@ function Home() {
 
     return (
         <>
-            <div>
-                <img src={flipdotLogo} className="logo" alt="flipdot logo"/>
-            </div>
-            <h1>flipdot app dashboard</h1>
             <div className="card">
                 <p>
-                    TODO: List of apps go here
+                    Hier würdest du jetzt eine Liste alle flipdot Apps sehen.
+                    Ich bin aber noch nicht fertig, sorry :)
                 </p>
+                <p>
+                    Übrigens bleibt man auch noch nicht eingeloggt wenn man die Seite neu lädt.
+                    Upsi.
+                </p>
+                <a href="https://github.com/flipdot/app-dashboard/">https://github.com/flipdot/app-dashboard</a>
             </div>
         </>
     )

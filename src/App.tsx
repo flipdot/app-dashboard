@@ -16,10 +16,12 @@ function App() {
     return <AuthProvider>
         <NavBar/>
         <div id="content">
-            <Routes>
-                <Route element={<RequireAuth/>}>
+            <RequireAuth>
+                <Routes>
                     <Route path="/" element={<Home/>}/>
-                </Route>
+                </Routes>
+            </RequireAuth>
+            <Routes>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/login/callback" element={<LoginCallback/>}/>
             </Routes>
