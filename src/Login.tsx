@@ -15,9 +15,16 @@ function Login() {
     return (
         <>
             <div>
-                <img src={flipdotLogo} className="logo" alt="flipdot logo"/>
+                <img src={flipdotLogo} width="60%" style={
+                    {
+                        margin: "auto",
+                        display: "block",
+                        padding: "20px",
+                        filter: "drop-shadow(0px 0px 10px #555)"
+                    }
+                } alt="flipdot"/>
             </div>
-            <h1>flipdot app dashboard</h1>
+            <h1>app dashboard</h1>
             <div className="card">
                 <p>
                     Schnellzugriff auf alle flipdot Apps für Mitglieder
