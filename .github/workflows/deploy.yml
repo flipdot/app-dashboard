@@ -48,4 +48,5 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > sftp_private_key.pem
+          chmod 600 sftp_private_key.pem
           sftp -i sftp_private_key.pem -P ${{ secrets.SFTP_PORT }} -r ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_SERVER }} <<< $'put -r ./dist/* /apps.flipdot.org/'
