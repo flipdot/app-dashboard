@@ -15,7 +15,6 @@ function NavBar() {
         <ul>
             <li>
                 <button onClick={auth.logout}>Logout</button>
-                <button onClick={auth.logout}>Logout</button>
             </li>
         </ul>
     </>
