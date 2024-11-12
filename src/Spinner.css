@@ -1,0 +1,33 @@
+.spinner {
+    border: 0.2em solid #aaa;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s cubic-bezier(.62, .27, .5, .75) infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner.spinner-sm {
+    width: 0.5em;
+    height: 0.5em;
+}
+
+.spinner.spinner-md {
+    width: 1em;
+    height: 1em;
+}
+
+.spinner.spinner-lg {
+    width: 4em;
+    height: 4em;
+    border-width: 0.7em;
+}

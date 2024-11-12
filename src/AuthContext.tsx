@@ -1,50 +1,55 @@
 import './App.css'
-import {User} from 'oidc-client-ts'
+import {User, UserManager, WebStorageStateStore} from 'oidc-client-ts'
 // import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import {createContext, useContext, useState} from "react";
-import AuthService from "./AuthService.ts";
+import {createContext, useContext, useEffect, useMemo, useState} from "react";
 
 interface AuthContextType {
-    user: null | User;
-    login: () => void;
-    logout: () => void;
-    loginCallback: () => Promise<null | User>;
+    user: undefined | null | User;
+    login: () => Promise<void>;
+    logout: () => Promise<void>;
+    loginCallback: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
-    login: () => {
+    login: async () => {
         console.error("login not implemented. Did you forget to wrap your app in an AuthProvider?");
     },
-    logout: () => {
+    logout: async () => {
         console.error("logout not implemented. Did you forget to wrap your app in an AuthProvider?");
     },
     loginCallback: async () => {
         console.error("loginCallback not implemented. Did you forget to wrap your app in an AuthProvider?");
-        return null;
     }
 });
 
 const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({children}: { children: React.ReactNode }) {
-    const [user, setUser] = useState<User | null>(
-        JSON.parse(
-            sessionStorage.getItem("session") || "null"
-        ) || undefined
-    );
+    const [user, setUser] = useState<User | null | undefined>(undefined);
+    const userManager = useMemo(() => new UserManager({
+        authority: "https://login.flipdot.org/realms/flipdot",
+        client_id: "flipdot-app-dashboard",
+        redirect_uri: window.location.origin + "/login/callback",
+        response_type: "code",
+        userStore: new WebStorageStateStore({store: window.localStorage}),
+    }), []);
 
-    const authService = new AuthService();
+    useEffect(() => {
+        userManager.getUser().then(setUser);
+    }, [userManager]);
 
     const loginCallback = async () => {
-        const authedUser = await authService.loginCallback();
-        setUser(authedUser);
-        return authedUser;
+        setUser(await userManager.signinRedirectCallback());
     };
-
-    const login = () => authService.login();
+    const login = async () => {
+        await userManager.signinRedirect();
+        setUser(await userManager.getUser());
+    }
     const logout = async () => {
-        await authService.logout();
+        // only logout in this application, not on the oidc server
+        await userManager.revokeTokens();
+        await userManager.removeUser();
         setUser(null);
     }
 

@@ -1,20 +1,22 @@
 import {useAuth} from "./AuthContext.tsx";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import Spinner from "./Spinner.tsx";
 
 function LoginCallback() {
     const auth = useAuth();
     const navigate = useNavigate();
-    auth.loginCallback().then(() => {
+
+    useEffect(() => {
+        auth.loginCallback().then(() => {
             navigate("/", {replace: true});
-        }
-    ).catch(
-        () => {
+        }).catch(() => {
+            console.error("Login callback failed");
             navigate("/login", {replace: true});
-        }
-    );
-    return <div>
-        <p>Logging in…</p>
-    </div>;
+        });
+    });
+
+    return <Spinner size="lg"/>;
 }
 
 export default LoginCallback;

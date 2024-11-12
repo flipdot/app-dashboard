@@ -2,20 +2,23 @@ import flipdotLogo from './assets/flipdot.svg'
 import './App.css'
 import {useAuth} from "./AuthContext.tsx";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 
 function Login() {
     const auth = useAuth();
     const navigate = useNavigate();
 
-    if (auth.user) {
-        navigate("/", {replace: true});
-    }
+    useEffect(() => {
+        if (auth.user) {
+            navigate("/", {replace: true});
+        }
+    }, [auth, navigate]);
 
     return (
         <>
             <div>
-                <img src={flipdotLogo} width="60%" style={
+                <img src={flipdotLogo} height="100em" style={
                     {
                         margin: "auto",
                         display: "block",

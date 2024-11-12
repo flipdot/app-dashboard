@@ -1,30 +1,36 @@
 import './App.css'
 // import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login.tsx";
-import {AuthProvider} from "./AuthContext.tsx";
-import {Route, Routes} from "react-router-dom";
+import {useAuth} from "./AuthContext.tsx";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "./Home.tsx";
-import RequireAuth from "./RequireAuth.tsx";
 import LoginCallback from "./LoginCallback.tsx";
 import NavBar from "./NavBar.tsx";
-
+import NotFound from "./NotFound.tsx";
 
 function App() {
 
-    return <AuthProvider>
+    const {user} = useAuth();
+
+    const AnonRoutes = <>
+        <Route path="/" element={<Navigate to="/login"/>}/>
+    </>
+
+    const LoggedInRoutes = <>
+        <Route path="/" element={<Home/>}/>
+    </>
+
+    return <>
         <NavBar/>
         <div id="content">
-            <RequireAuth>
-                <Routes>
-                    <Route path="/" element={<Home/>}/>
-                </Routes>
-            </RequireAuth>
             <Routes>
+                {user === undefined ? null : user ? LoggedInRoutes : AnonRoutes}
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/login/callback" element={<LoginCallback/>}/>
+                <Route path="*" element={<NotFound/>}/>
             </Routes>
         </div>
-    </AuthProvider>
+    </>
 
     // const auth = useAuth();
     // // let navigate = useNavigate();

@@ -5,6 +5,7 @@ import App from './App.tsx'
 
 import * as Sentry from "@sentry/react";
 import {BrowserRouter} from "react-router-dom";
+import {AuthProvider} from "./AuthContext.tsx";
 
 Sentry.init({
     dsn: "https://7976fc906df26e2865ad329d909f52f5@sentry.flipdot.org/6",
@@ -15,7 +16,9 @@ Sentry.init({
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <BrowserRouter>
-            <App/>
+            <AuthProvider>
+                <App/>
+            </AuthProvider>
         </BrowserRouter>
     </StrictMode>,
 )

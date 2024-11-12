@@ -14,10 +14,6 @@ function Home() {
                     Hier würdest du jetzt eine Liste alle flipdot Apps sehen.
                     Ich bin aber noch nicht fertig, sorry :)
                 </p>
-                <p>
-                    Übrigens bleibt man auch noch nicht eingeloggt wenn man die Seite neu lädt.
-                    Upsi.
-                </p>
                 <a href="https://github.com/flipdot/app-dashboard/">https://github.com/flipdot/app-dashboard</a>
             </div>
         </>
