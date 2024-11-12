@@ -11,6 +11,7 @@ function NavBar() {
         <span className="title" style={{
             lineHeight: "1.1em",
             overflow: "hidden",
+            textAlign: "right",
         }}>{auth.user?.profile.preferred_username}</span>
         <ul>
             <li>
@@ -18,7 +19,10 @@ function NavBar() {
             </li>
         </ul>
     </>
-    const rightItem = auth.user === undefined ? <Spinner/> : auth.user ? userMenu : loginButton;
+    const alignedSpinner = <span style={{
+        textAlign: "right",
+    }}><Spinner/></span>
+    const rightItem = auth.user === undefined ? alignedSpinner : auth.user ? userMenu : loginButton;
     return (
         <nav className="navbar">
             <Link to="/" className="logo"><img src={fdLogo} alt="fd" onError={
