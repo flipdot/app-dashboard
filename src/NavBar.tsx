@@ -8,9 +8,13 @@ function NavBar() {
     const auth = useAuth();
     const loginButton = <button className="login-button" onClick={auth.login}>Login</button>
     const userMenu = <>
-        <span className="title">{auth.user?.profile.preferred_username}</span>
+        <span className="title" style={{
+            lineHeight: "1.1em",
+            overflow: "hidden",
+        }}>{auth.user?.profile.preferred_username}</span>
         <ul>
             <li>
+                <button onClick={auth.logout}>Logout</button>
                 <button onClick={auth.logout}>Logout</button>
             </li>
         </ul>
