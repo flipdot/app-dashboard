@@ -1,8 +1,8 @@
 import flipdotLogo from './assets/flipdot.svg'
 import './App.css'
-import {useAuth} from "./AuthContext.tsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {useAuth} from "react-oidc-context";
 
 
 function Login() {
@@ -32,7 +32,7 @@ function Login() {
                 <p>
                     Schnellzugriff auf alle flipdot Apps für Mitglieder
                 </p>
-                <button onClick={auth.login}>Anmelden</button>
+                <button onClick={() => auth.signinRedirect()}>Anmelden</button>
             </div>
         </>
     )

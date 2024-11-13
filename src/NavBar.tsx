@@ -1,12 +1,12 @@
-import {useAuth} from "./AuthContext.tsx";
 import fdLogo from './assets/fd.svg';
 import "./NavBar.css";
 import {Link} from "react-router-dom";
 import Spinner from "./Spinner.tsx";
+import {useAuth} from "react-oidc-context";
 
 function NavBar() {
     const auth = useAuth();
-    const loginButton = <button className="login-button" onClick={auth.login}>Login</button>
+    const loginButton = <button className="login-button" onClick={() => auth.signinRedirect()}>Login</button>
     const userMenu = <>
         <span className="title" style={{
             lineHeight: "1.1em",
@@ -15,7 +15,15 @@ function NavBar() {
         }}>{auth.user?.profile.preferred_username}</span>
         <ul>
             <li>
-                <button onClick={auth.logout}>Logout</button>
+                <button onClick={async () => {
+                    await auth.revokeTokens();
+                    await auth.removeUser();
+                    // user becomes undefined, which can lead to infinite loading spinners
+                    // in other parts of the application.
+                    // Therefore, let's just reload the application
+                    window.location.reload()
+                }}>Logout
+                </button>
             </li>
         </ul>
     </>
@@ -32,7 +40,6 @@ function NavBar() {
             } onLoad={(e) => {
                 e.currentTarget.style.backgroundColor = "transparent";
             }}/></Link>
-            {/*<Link to="/" className="logo"><img src="broken" alt="fd"/></Link>*/}
             <ul className="nav-links">
                 {/*<li><Link to="/">Home</Link></li>*/}
                 <li>{rightItem}</li>

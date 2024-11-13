@@ -1,19 +1,19 @@
-import {useAuth} from "./AuthContext.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {useAuth} from "react-oidc-context";
 
 function NotFound() {
-    const auth = useAuth();
+    const {user} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
-        if (auth.user === null) {
+        if (user === null) {
             navigate("/login", {replace: true, state: {from: location}});
         }
-    }, [auth, navigate, location]);
+    }, [user, navigate, location]);
 
-    if (auth.user === undefined) {
+    if (user === undefined) {
         // avoids flickering
         return <div></div>
     }

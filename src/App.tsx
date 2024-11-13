@@ -1,11 +1,10 @@
 import './App.css'
-// import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login.tsx";
-import {useAuth} from "./AuthContext.tsx";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "./Home.tsx";
-import LoginCallback from "./LoginCallback.tsx";
 import NavBar from "./NavBar.tsx";
+import {useAuth} from "react-oidc-context";
+
 import NotFound from "./NotFound.tsx";
 
 function App() {
@@ -24,9 +23,10 @@ function App() {
         <NavBar/>
         <div id="content">
             <Routes>
-                {user === undefined ? null : user ? LoggedInRoutes : AnonRoutes}
+                <>
+                    {user === undefined ? null : user ? LoggedInRoutes : AnonRoutes}
+                </>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/login/callback" element={<LoginCallback/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </div>

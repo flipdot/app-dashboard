@@ -1,19 +1,19 @@
 import './App.css'
-
-// import { Navigate, useLocation, useNavigate } from "react-router-dom";
-
+import useSWR from "swr";
 
 function Home() {
 
-    // const auth = useAuth();
+    const res = useSWR('https://login.flipdot.org/realms/flipdot/account/applications');
 
     return (
         <>
             <div className="card">
-                <p>
-                    Hier würdest du jetzt eine Liste alle flipdot Apps sehen.
-                    Ich bin aber noch nicht fertig, sorry :)
-                </p>
+                <pre style={{
+                    fontSize: "0.7em",
+                    textAlign: "left",
+                }}>
+                    {JSON.stringify(res, null, 2)}
+                </pre>
                 <a href="https://github.com/flipdot/app-dashboard/">https://github.com/flipdot/app-dashboard</a>
             </div>
         </>
