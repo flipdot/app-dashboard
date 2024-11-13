@@ -7,7 +7,6 @@ function AuthenticatedSWRConfig({children}: PropsWithChildren) {
 
     return <SWRConfig
         value={{
-            refreshInterval: 3000,
             fetcher: async (resource, init) => {
                 if (!auth.user) {
                     throw new Error("Not authenticated");

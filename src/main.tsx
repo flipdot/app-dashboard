@@ -24,7 +24,6 @@ const oidcConfig = {
     post_logout_redirect_uri: window.location.origin + "/login/callback",
     response_type: "code",
     userStore: new WebStorageStateStore({store: window.localStorage}),
-    scope: "openid profile offline_access",
 } satisfies AuthProviderProps;
 
 createRoot(document.getElementById('root')!).render(
