@@ -30,7 +30,7 @@ function NavBar() {
     const alignedSpinner = <span style={{
         textAlign: "right",
     }}><Spinner/></span>
-    const rightItem = auth.user === undefined ? alignedSpinner : auth.user ? userMenu : loginButton;
+    const rightItem = auth.isLoading ? alignedSpinner : auth.user ? userMenu : loginButton;
     return (
         <nav className="navbar">
             <Link to="/" className="logo"><img src={fdLogo} alt="fd" onError={

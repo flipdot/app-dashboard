@@ -3,13 +3,26 @@ import Login from "./Login.tsx";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "./Home.tsx";
 import NavBar from "./NavBar.tsx";
-import {useAuth} from "react-oidc-context";
+import {hasAuthParams, useAuth} from "react-oidc-context";
 
 import NotFound from "./NotFound.tsx";
+import {useEffect, useState} from "react";
+import Spinner from "./Spinner.tsx";
 
 function App() {
 
-    const {user} = useAuth();
+    const auth = useAuth();
+    const [hasTriedSignin, setHasTriedSignin] = useState(false);
+
+    useEffect(() => {
+        if (!hasAuthParams() &&
+            !auth.isAuthenticated && !auth.activeNavigator && !auth.isLoading &&
+            !hasTriedSignin && auth.user
+        ) {
+            auth.signinSilent();
+            setHasTriedSignin(true);
+        }
+    }, [auth, hasTriedSignin]);
 
     const AnonRoutes = <>
         <Route path="/" element={<Navigate to="/login"/>}/>
@@ -22,13 +35,13 @@ function App() {
     return <>
         <NavBar/>
         <div id="content">
-            <Routes>
+            {auth.isLoading ? <Spinner size="lg"></Spinner> : <Routes>
                 <>
-                    {user === undefined ? null : user ? LoggedInRoutes : AnonRoutes}
+                    {auth.user === undefined ? null : auth.user ? LoggedInRoutes : AnonRoutes}
                 </>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="*" element={<NotFound/>}/>
-            </Routes>
+            </Routes>}
         </div>
     </>
 

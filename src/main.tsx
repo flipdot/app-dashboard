@@ -21,7 +21,7 @@ const oidcConfig = {
     authority: "https://login.flipdot.org/realms/flipdot",
     client_id: "flipdot-app-dashboard",
     redirect_uri: window.location.origin + "/login",
-    post_logout_redirect_uri: window.location.origin + "/login",
+    post_logout_redirect_uri: window.location.origin + "/login/callback",
     response_type: "code",
     userStore: new WebStorageStateStore({store: window.localStorage}),
 } satisfies AuthProviderProps;
