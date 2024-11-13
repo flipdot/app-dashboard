@@ -37,7 +37,7 @@ function App() {
         <div id="content">
             {auth.isLoading ? <Spinner size="lg"></Spinner> : <Routes>
                 <>
-                    {auth.user === undefined ? null : auth.user ? LoggedInRoutes : AnonRoutes}
+                    {auth.isAuthenticated ? LoggedInRoutes : AnonRoutes}
                 </>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="*" element={<NotFound/>}/>
