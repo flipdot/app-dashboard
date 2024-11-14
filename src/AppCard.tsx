@@ -50,7 +50,9 @@ function AppCard({app}: { app: OIDCApplication }) {
         </div>
         <div className="app-card-footer">
             <span>{app.rootUrl}</span>
-            {app.effectiveUrl ? <button onClick={() => window.open(app.effectiveUrl, "_blank")}>Öffnen</button> : null}
+            {app.effectiveUrl ? <button onClick={() => window.open(app.effectiveUrl, "_blank")}>Öffnen</button> : <span>
+                Client ID: <code>{app.clientId}</code>
+            </span>}
         </div>
     </div>
 }
