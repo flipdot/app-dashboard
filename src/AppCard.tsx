@@ -41,7 +41,12 @@ function AppCard({app}: { app: OIDCApplication }) {
             <h2>{app.clientName || app.clientId}</h2>
         </a>
         <div className="app-card-body">
-            <p>{description}</p>
+            <div className="text">
+                <p>{description}</p>
+            </div>
+            <div className="image">
+                <img src="/fd.svg" alt="App Icon"/>
+            </div>
         </div>
         <div className="app-card-footer">
             <span>{app.rootUrl}</span>
