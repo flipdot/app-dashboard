@@ -44,7 +44,8 @@ function AppCard({app}: { app: OIDCApplication }) {
             <p>{description}</p>
         </div>
         <div className="app-card-footer">
-            <p><a href={app.effectiveUrl} target="_blank">{app.effectiveUrl}</a></p>
+            <span>{app.rootUrl}</span>
+            {app.effectiveUrl ? <button onClick={() => window.open(app.effectiveUrl, "_blank")}>Öffnen</button> : null}
         </div>
     </div>
 }
