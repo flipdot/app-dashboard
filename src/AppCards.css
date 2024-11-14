@@ -1,0 +1,63 @@
+.app-card {
+    background: #1a1a1a;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.25s;
+}
+
+.app-card:hover {
+    box-shadow: 0 0 16px hsl(48, 100%, 28%);
+}
+
+.app-card-header {
+    padding: 0.2em;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.app-card-header h2 {
+    margin: 0;
+    padding: 0.3em;
+    font-size: 1.4em;
+}
+
+.app-card-body {
+    padding: 1.2em;
+    flex: 1;
+    text-align: left;
+}
+
+.app-card-footer {
+    text-align: right;
+    padding: 0.4em;
+    background: #2a2a2a;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 0.9em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.app-card-footer p {
+    margin: 0.2em;
+}
+
+@media (prefers-color-scheme: light) {
+    .app-card {
+        background: #e0e0e0;
+    }
+
+    .app-card-header {
+        background: #f0f0f0;
+        color: #000;
+    }
+
+    .app-card-footer {
+        background: #f0f0f0;
+    }
+}

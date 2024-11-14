@@ -1,21 +1,25 @@
 import './App.css'
 import useSWR from "swr";
+import Spinner from "./Spinner.tsx";
+import AppCard, {OIDCApplication} from "./AppCard.tsx";
 
 function Home() {
 
-    const res = useSWR('https://login.flipdot.org/realms/flipdot/account/applications');
+    const {data, isLoading} = useSWR('https://login.flipdot.org/realms/flipdot/account/applications');
+
+    const content = <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
+        gap: "1.5em",
+        margin: "1em 0",
+        justifyContent: "center",
+    }}>
+        {data?.map((app: OIDCApplication) => <AppCard key={app.clientId} app={app}/>)}
+    </div>
 
     return (
         <>
-            <div className="card">
-                <pre style={{
-                    fontSize: "0.7em",
-                    textAlign: "left",
-                }}>
-                    {JSON.stringify(res, null, 2)}
-                </pre>
-                <a href="https://github.com/flipdot/app-dashboard/">https://github.com/flipdot/app-dashboard</a>
-            </div>
+            {isLoading ? <Spinner size="lg"/> : content}
         </>
     )
 }
