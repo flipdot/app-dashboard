@@ -45,7 +45,7 @@ function AppCard({app}: { app: OIDCApplication }) {
                 <p>{description}</p>
             </div>
             <div className="image">
-                <img src="/fd.svg" alt="App Icon"/>
+                <a href={app.effectiveUrl} target="_blank"><img src="/fd.svg" alt="App Icon"/></a>
             </div>
         </div>
         <div className="app-card-footer">
