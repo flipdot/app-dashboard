@@ -36,6 +36,7 @@
 
 .app-card-body > .image img {
     width: 3em;
+    filter: drop-shadow(0 0 2px #ffffffaa);
 }
 
 .app-card-footer {

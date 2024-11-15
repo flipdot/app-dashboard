@@ -36,6 +36,12 @@ function AppCard({app}: { app: OIDCApplication }) {
         return part;
     });
 
+    // replace characters from the client URL that are not suitable for urls or file names
+
+    const filename = app.clientId.replace(/[^a-zA-Z0-9.-]/g, "_");
+
+    const logoUrl = `/logos/${filename}.svg`;
+
     return <div className="app-card">
         <a href={app.effectiveUrl} target="_blank" className="app-card-header">
             <h2>{app.clientName || app.clientId}</h2>
@@ -45,12 +51,15 @@ function AppCard({app}: { app: OIDCApplication }) {
                 <p>{description}</p>
             </div>
             <div className="image">
-                <a href={app.effectiveUrl} target="_blank"><img src="/fd.svg" alt="App Icon"/></a>
+                <a href={app.effectiveUrl} target="_blank"><img src={logoUrl} alt="App Icon" onError={e => {
+                    e.currentTarget.src = "/fd.svg"
+                }}/></a>
             </div>
         </div>
         <div className="app-card-footer">
             <span>{app.rootUrl}</span>
-            {app.effectiveUrl ? <button onClick={() => window.open(app.effectiveUrl, "_blank")}>Öffnen</button> : <span>
+            {app.effectiveUrl ?
+                <button onClick={() => window.open(app.effectiveUrl, "_blank")}>Öffnen</button> : <span>
                 Client ID: <code>{app.clientId}</code>
             </span>}
         </div>
