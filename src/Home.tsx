@@ -7,21 +7,40 @@ function Home() {
 
     const {data, isLoading} = useSWR('https://login.flipdot.org/realms/flipdot/account/applications');
 
-    const content = <div style={{
+    if (isLoading) {
+        return <Spinner size="lg"/>
+    }
+
+    const vpnOnlyData = data.filter((app: OIDCApplication) => app.rootUrl.endsWith("flipdot.space"));
+    const internetData = data.filter((app: OIDCApplication) => !app.rootUrl.endsWith("flipdot.space"));
+
+    const internetApps = <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
         gap: "1.5em",
         margin: "1em 0",
         justifyContent: "center",
     }}>
-        {data?.map((app: OIDCApplication) => <AppCard key={app.clientId} app={app}/>)}
+        {internetData.map((app: OIDCApplication) => <AppCard key={app.clientId} app={app}/>)}
+    </div>
+
+    const vpnApps = <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
+        gap: "1.5em",
+        margin: "1em 0",
+        justifyContent: "center",
+    }}>
+        {vpnOnlyData.map((app: OIDCApplication) => <AppCard key={app.clientId} app={app}/>)}
     </div>
 
     return (
         <>
-            {isLoading ? <Spinner size="lg"/> : content}
-        </>
-    )
+            {internetApps}
+            <hr/>
+            <h2>Nur im flipdot-Netz verfügbar:</h2>
+            {vpnApps}
+        </>)
 }
 
 export default Home
