@@ -42,18 +42,22 @@ function AppCard({app}: { app: OIDCApplication }) {
 
     const logoUrl = `/logos/${filename}.svg`;
 
+    const appImg = <img src={logoUrl} alt="App Icon" onError={e => {
+        e.currentTarget.src = "/fd.svg"
+    }}/>;
+    const cardTitle = <h2>{app.clientName || app.clientId}</h2>;
+    const linkedCardTitle = <a href={app.effectiveUrl} target="_blank" className="app-card-header">
+        {cardTitle}
+    </a>;
+    const linkedAppImg = <a href={app.effectiveUrl} target="_blank">{appImg}</a>;
     return <div className="app-card">
-        <a href={app.effectiveUrl} target="_blank" className="app-card-header">
-            <h2>{app.clientName || app.clientId}</h2>
-        </a>
+        {app.effectiveUrl ? linkedCardTitle : <span className="app-card-header">{cardTitle}</span>}
         <div className="app-card-body">
             <div className="text">
                 <p>{description}</p>
             </div>
             <div className="image">
-                <a href={app.effectiveUrl} target="_blank"><img src={logoUrl} alt="App Icon" onError={e => {
-                    e.currentTarget.src = "/fd.svg"
-                }}/></a>
+                {app.effectiveUrl ? linkedAppImg : appImg}
             </div>
         </div>
         <div className="app-card-footer">
