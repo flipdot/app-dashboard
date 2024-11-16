@@ -1,6 +1,6 @@
 import './App.css'
 import Login from "./Login.tsx";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Home from "./Home.tsx";
 import NavBar from "./NavBar.tsx";
 import {hasAuthParams, useAuth} from "react-oidc-context";
@@ -15,6 +15,7 @@ function App() {
     const [hasTriedSignin, setHasTriedSignin] = useState(false);
 
     useEffect(() => {
+        // from https://github.com/authts/react-oidc-context?tab=readme-ov-file#automatic-sign-in
         if (!hasAuthParams() &&
             !auth.isAuthenticated && !auth.activeNavigator && !auth.isLoading &&
             !hasTriedSignin && auth.user
@@ -24,9 +25,12 @@ function App() {
         }
     }, [auth, hasTriedSignin]);
 
-    const AnonRoutes = <>
-        <Route path="/" element={<Navigate to="/login"/>}/>
-    </>
+    if (auth.isLoading) {
+        return <>
+            <NavBar/>
+            <div id="content"><Spinner size="lg"></Spinner></div>
+        </>
+    }
 
     const LoggedInRoutes = <>
         <Route path="/" element={<Home/>}/>
@@ -35,37 +39,15 @@ function App() {
     return <>
         <NavBar/>
         <div id="content">
-            {auth.isLoading ? <Spinner size="lg"></Spinner> : <Routes>
+            <Routes>
                 <>
-                    {auth.isAuthenticated ? LoggedInRoutes : AnonRoutes}
+                    {auth.isAuthenticated ? LoggedInRoutes : null}
                 </>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="*" element={<NotFound/>}/>
-            </Routes>}
+            </Routes>
         </div>
     </>
-
-    // const auth = useAuth();
-    // // let navigate = useNavigate();
-    //
-    // if (!auth.user) {
-    //   return <Login />
-    // }
-    //
-    //
-    // return (
-    //   <>
-    //     <div>
-    //         <img src={flipdotLogo} className="logo" alt="flipdot logo" />
-    //     </div>
-    //     <h1>flipdot app dashboard</h1>
-    //     <div className="card">
-    //       <p>
-    //           TODO: List of apps go here
-    //       </p>
-    //     </div>
-    //   </>
-    // )
 }
 
 export default App
