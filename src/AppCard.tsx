@@ -45,7 +45,13 @@ function AppCard({app}: { app: OIDCApplication }) {
         {app.effectiveUrl ? linkedCardTitle : <span className="app-card-header">{cardTitle}</span>}
         <div className="app-card-body">
             <div className="text">
-                <Markdown>{app.description}</Markdown>
+                <Markdown
+                    components={{
+                        a: ({...props}) => <a {...props} target="_blank">
+                            {props.children}
+                        </a>
+                    }}
+                >{app.description}</Markdown>
             </div>
             <div className="image">
                 {app.effectiveUrl ? linkedAppImg : appImg}
