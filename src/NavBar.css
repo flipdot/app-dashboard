@@ -54,6 +54,7 @@
     padding: 0;
     user-select: none;
     width: 10em;
+    z-index: 1;
 }
 
 .navbar ul.nav-links > li > * {
@@ -77,6 +78,15 @@
 .navbar ul.nav-links li ul button {
     width: 100%;
     margin: 0.3em 0;
+    text-align: right;
+    background: none;
+    border: none;
+    border-right: 5px solid rgba(0, 0, 0, 0);
+    border-radius: 0;
+}
+
+.navbar ul.nav-links li ul button:hover {
+    border-right: 5px solid #fff;
 }
 
 .navbar ul.nav-links li > .title::after {

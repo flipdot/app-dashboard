@@ -6,7 +6,7 @@ import {useAuth} from "react-oidc-context";
 
 function NavBar() {
     const auth = useAuth();
-    const loginButton = <button className="login-button" onClick={() => auth.signinRedirect()}>Login</button>
+    const loginButton = <button className="login-button" onClick={() => auth.signinRedirect()}>Anmelden</button>
     const userMenu = <>
         <span className="title" style={{
             lineHeight: "1.1em",
@@ -15,6 +15,24 @@ function NavBar() {
         }}>{auth.user?.profile.preferred_username}</span>
         <ul>
             <li>
+                <button onClick={() => {
+                    auth.signinRedirect({
+                        extraQueryParams: {
+                            kc_action: "UPDATE_PROFILE",
+                        }
+                    })
+                }}>Profil aktualisieren
+                </button>
+                <button onClick={() => {
+                    auth.signinRedirect({
+                        extraQueryParams: {
+                            kc_action: "UPDATE_PASSWORD",
+                        }
+                    })
+                }}>Passwort ändern
+                </button>
+            </li>
+            <li>
                 <button onClick={async () => {
                     await auth.revokeTokens();
                     await auth.removeUser();
@@ -22,7 +40,7 @@ function NavBar() {
                     // in other parts of the application.
                     // Therefore, let's just reload the application
                     window.location.reload()
-                }}>Logout
+                }}>Abmelden
                 </button>
             </li>
         </ul>
