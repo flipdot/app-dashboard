@@ -1,4 +1,5 @@
 import "./AppCards.css"
+import Markdown from "react-markdown";
 
 type GrantedScope = {
     id: string;
@@ -27,17 +28,7 @@ type OIDCApplication = {
 
 function AppCard({app}: { app: OIDCApplication }) {
 
-    // convert text "@NICKNAME" to a link to `https://forum.flipdot.org/u/${nickname}`
-    const description = app.description?.split(/(@\w+)/g).map((part, index) => {
-        if (part.startsWith("@")) {
-            const nickname = part.slice(1);
-            return <a key={index} href={`https://forum.flipdot.org/u/${nickname}`} target="_blank">{part}</a>;
-        }
-        return part;
-    });
-
     // replace characters from the client URL that are not suitable for urls or file names
-
     const filename = app.clientId.replace(/[^a-zA-Z0-9.-]/g, "_");
 
     const logoUrl = `/logos/${filename}.svg`;
@@ -54,7 +45,7 @@ function AppCard({app}: { app: OIDCApplication }) {
         {app.effectiveUrl ? linkedCardTitle : <span className="app-card-header">{cardTitle}</span>}
         <div className="app-card-body">
             <div className="text">
-                <p>{description}</p>
+                <Markdown>{app.description}</Markdown>
             </div>
             <div className="image">
                 {app.effectiveUrl ? linkedAppImg : appImg}
