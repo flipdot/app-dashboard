@@ -30,8 +30,12 @@
     flex: 1;
     text-align: left;
     display: flex;
-    justify-content: space-between;
     gap: 1em;
+}
+
+.app-card-body > .text {
+    flex: 1;
+    overflow: hidden;
 }
 
 .app-card-body > .image img {
