@@ -1,6 +1,6 @@
 import './App.css'
 import Login from "./Login.tsx";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router";
 import Home from "./Home.tsx";
 import NavBar from "./NavBar.tsx";
 import {hasAuthParams, useAuth} from "react-oidc-context";
