@@ -4,7 +4,7 @@ import './main.css'
 import App from './App.tsx'
 
 import * as Sentry from "@sentry/react";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router";
 import {AuthProvider, AuthProviderProps} from "react-oidc-context";
 import AuthenticatedSWRConfig from "./AuthenticatedSWRConfig.tsx";
 import {WebStorageStateStore} from "oidc-client-ts";

@@ -1,6 +1,6 @@
 import flipdotLogo from './assets/flipdot.svg'
 import './App.css'
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import {useEffect} from "react";
 import {useAuth} from "react-oidc-context";
 

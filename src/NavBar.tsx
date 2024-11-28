@@ -1,6 +1,6 @@
 import fdLogo from './assets/fd.svg';
 import "./NavBar.css";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import Spinner from "./Spinner.tsx";
 import {useAuth} from "react-oidc-context";
 
