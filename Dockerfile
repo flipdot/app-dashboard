@@ -3,8 +3,8 @@
 
 FROM node:22.12.0-alpine AS base-image
 
-# # The `CI` environment variable must be set for pnpm to run in headless mode
-# ENV CI=true
+# The `CI` environment variable must be set for pnpm to run in headless mode
+ENV CI=true
 
 WORKDIR /srv/app/
 
@@ -20,14 +20,13 @@ FROM base-image AS development
 
 # COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
-# VOLUME /srv/.pnpm-store
+VOLUME /srv/.pnpm-store
 VOLUME /srv/app
 
 USER node
 
-# ENTRYPOINT ["docker-entrypoint.sh"]
-# CMD ["pnpm", "run", "--dir", "src", "dev", "--host"]
-CMD ["npm", "run", "dev", "--port", "3000"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["pnpm", "run", "dev", "--host", "--port", "3000"]
 EXPOSE 3000
 
 # HEALTHCHECK --interval=10s CMD wget -O /dev/null http://localhost:3000/api/healthcheck || exit 1
@@ -38,15 +37,13 @@ EXPOSE 3000
 
 FROM base-image AS prepare
 
-# COPY ./pnpm-lock.yaml ./
-COPY ./package.json ./package-lock.json ./
+COPY ./pnpm-lock.yaml ./
 
-# RUN pnpm fetch
-RUN npm install
+RUN pnpm fetch
 
 COPY ./ ./
 
-# RUN pnpm install --offline
+RUN pnpm install --offline
 
 
 # ########################
@@ -60,8 +57,7 @@ COPY ./ ./
 # # ENV SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
 
 # ENV NODE_ENV=production
-# RUN npm run build
-# # RUN pnpm --dir src run build:node
+# RUN pnpm run build:node
 
 
 ########################
@@ -73,8 +69,7 @@ FROM prepare AS build-static
 # ENV SITE_URL=${SITE_URL}
 
 ENV NODE_ENV=production
-RUN npm run build
-# RUN pnpm --dir src run build:static
+RUN pnpm run build:static
 
 
 ########################
@@ -82,8 +77,7 @@ RUN npm run build
 
 FROM prepare AS lint
 
-RUN npm run lint
-# RUN pnpm -r run lint
+RUN pnpm run lint
 
 
 # ########################
@@ -191,10 +185,6 @@ COPY --from=lint /srv/app/package.json /tmp/package.json
 # Provide a web server.
 
 FROM nginx:1.27.3-alpine AS production
-
-# The `CI` environment variable must be set for pnpm to run in headless mode
-ENV CI=true
-ENV NODE_ENV=production
 
 WORKDIR /usr/share/nginx/html
 
