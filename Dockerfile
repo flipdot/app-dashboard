@@ -190,7 +190,7 @@ COPY --from=lint /srv/app/package.json /tmp/package.json
 #######################
 # Provide a web server.
 
-FROM nginx:1.27.3-alpine AS production
+FROM nginx:1.27.4-alpine AS production
 
 # The `CI` environment variable must be set for pnpm to run in headless mode
 ENV CI=true
