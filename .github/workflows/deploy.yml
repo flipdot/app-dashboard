@@ -26,6 +26,9 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
           node-version: 22
 
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build project
         run: pnpm run build
 
