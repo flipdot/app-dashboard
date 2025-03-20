@@ -15,9 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup package manager
-        run: |
-          npm install -g corepack@latest # TODO: remove (https://github.com/nodejs/corepack/issues/612)
-          corepack enable
+        run: corepack enable
 
       - name: Setup Node
         uses: actions/setup-node@v4.3.0
