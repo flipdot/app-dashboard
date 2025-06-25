@@ -1,7 +1,7 @@
 #############
 # Create base image.
 
-FROM node:22.16.0-alpine AS base-image
+FROM node:22.17.0-alpine AS base-image
 
 # The `CI` environment variable must be set for pnpm to run in headless mode
 ENV CI=true
@@ -184,7 +184,7 @@ COPY --from=lint /srv/app/package.json /tmp/package.json
 #######################
 # Provide a web server.
 
-FROM nginx:1.28.0-alpine AS production
+FROM nginx:1.29.0-alpine AS production
 
 WORKDIR /usr/share/nginx/html
 
