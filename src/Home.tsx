@@ -11,8 +11,12 @@ function Home() {
         return <Spinner size="lg"/>
     }
 
-    const vpnOnlyData = data.filter((app: OIDCApplication) => app.rootUrl.endsWith("flipdot.space"));
-    const internetData = data.filter((app: OIDCApplication) => !app.rootUrl.endsWith("flipdot.space"));
+    function isSpaceUrl(url: string): boolean {
+        return url.endsWith("flipdot.space") || url.endsWith(".fd");
+    }
+
+    const vpnOnlyData = data.filter((app: OIDCApplication) => isSpaceUrl(app.rootUrl));
+    const internetData = data.filter((app: OIDCApplication) => !isSpaceUrl(app.rootUrl));
 
     const internetApps = <div style={{
         display: "grid",
