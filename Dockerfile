@@ -184,7 +184,7 @@ COPY --from=lint /srv/app/package.json /tmp/package.json
 #######################
 # Provide a web server.
 
-FROM nginx:1.29.1-alpine AS production
+FROM nginx:1.29.2-alpine AS production
 
 WORKDIR /usr/share/nginx/html
 
