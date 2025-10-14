@@ -23,10 +23,10 @@
     "globals": "16.4.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.1",
-    "vite": "7.1.9"
+    "vite": "7.1.10"
   },
   "name": "apps",
-  "packageManager": "pnpm@10.18.2",
+  "packageManager": "pnpm@10.18.3",
   "pnpm": {
     "ignoredBuiltDependencies": [
       "@sentry/cli",
