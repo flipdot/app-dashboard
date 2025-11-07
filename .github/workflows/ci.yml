@@ -10,37 +10,31 @@ on:
       - renovate/**
 
 jobs:
-  prepare_jobs:
-    name: "Prepare: job optimization"
-    runs-on: ubuntu-latest
-    outputs:
-      pr_found: ${{ steps.pr.outputs.pr_found }}
-    steps:
-      - name: Get current PR
-        id: pr
-        uses: 8BitJonny/gh-get-current-pr@4056877062a1f3b624d5d4c2bedefa9cf51435c9 # 4.0.0
-        with:
-          filterOutClosed: true
-          filterOutDraft: true
+  ci-optimization:
+    name: CI optimization
+    uses: dargmuesli/github-actions/.github/workflows/ci-optimization.yml@a8900fcf9e9d1e7f4c1138484cb7bf8d7bd3f3cb # 3.0.0
+    permissions:
+      pull-requests: read
   # release_semantic_dry:
-  #   needs: prepare_jobs
+  #   needs: ci-optimization
+  #   if: needs.ci-optimization.outputs.continue == 'true'
   #   name: Release (semantic, dry)
-  #   uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@2.3.5
-  #   if: needs.prepare_jobs.outputs.pr_found == 'false' || github.event_name == 'pull_request'
+  #   uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@714a68188444d710ffa3e9f35a05f6a9d420931d # 3.2.0
   #   permissions:
   #     contents: write
+  #     id-token: write
   #   secrets:
   #     PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
   #   with:
   #     DRY_RUN: true
   build:
+    needs: ci-optimization
+    if: needs.ci-optimization.outputs.continue == 'true'
     name: Build
-    uses: dargmuesli/github-actions/.github/workflows/docker.yml@2b47b35b82df04152c34ae042bd011dd83f28ffd # 2.8.0
-    needs: prepare_jobs
-    if: needs.prepare_jobs.outputs.pr_found == 'false' || github.event_name == 'pull_request'
+    uses: dargmuesli/github-actions/.github/workflows/docker.yml@714a68188444d710ffa3e9f35a05f6a9d420931d # 3.2.0
   #   needs: release_semantic_dry
-  #   permissions:
-  #     packages: write
+    permissions:
+      packages: write
     with:
       PUSH: false
   #     BUILD_ARGUMENTS: RELEASE_NAME=${{ needs.release_semantic_dry.outputs.new_release_version }}
@@ -48,8 +42,9 @@ jobs:
   # release_semantic:
   #   needs: build
   #   name: Release (semantic)
-  #   uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@2.3.5
+  #   uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@714a68188444d710ffa3e9f35a05f6a9d420931d # 3.2.0
   #   permissions:
   #     contents: write
+  #     id-token: write
   #   secrets:
   #     PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
