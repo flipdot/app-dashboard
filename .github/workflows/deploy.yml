@@ -12,13 +12,13 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Setup package manager
         run: corepack enable
 
       - name: Setup Node
-        uses: actions/setup-node@v6.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           cache: pnpm
           node-version: 24
@@ -30,7 +30,7 @@ jobs:
         run: pnpm run build
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
           name: production-files
           path: ./dist
@@ -43,7 +43,7 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
         with:
           name: production-files
           path: ./dist
