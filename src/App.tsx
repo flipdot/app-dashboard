@@ -6,24 +6,24 @@ import NavBar from "./NavBar.tsx";
 import {hasAuthParams, useAuth} from "react-oidc-context";
 
 import NotFound from "./NotFound.tsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef} from "react";
 import Spinner from "./Spinner.tsx";
 
 function App() {
 
     const auth = useAuth();
-    const [hasTriedSignin, setHasTriedSignin] = useState(false);
+    const hasTriedSignin = useRef(false);
 
     useEffect(() => {
         // from https://github.com/authts/react-oidc-context?tab=readme-ov-file#automatic-sign-in
         if (!hasAuthParams() &&
             !auth.isAuthenticated && !auth.activeNavigator && !auth.isLoading &&
-            !hasTriedSignin && auth.user
+            !hasTriedSignin.current && auth.user
         ) {
             auth.signinSilent();
-            setHasTriedSignin(true);
+            hasTriedSignin.current = true;
         }
-    }, [auth, hasTriedSignin]);
+    }, [auth, ]);
 
     if (auth.isLoading) {
         return <>
