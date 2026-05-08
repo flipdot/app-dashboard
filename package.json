@@ -26,14 +26,7 @@
     "vite": "8.0.10"
   },
   "name": "apps",
-  "packageManager": "pnpm@11.0.5",
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@sentry/cli",
-      "@swc/core",
-      "esbuild"
-    ]
-  },
+  "packageManager": "pnpm@11.0.8",
   "private": true,
   "scripts": {
     "build": "pnpm run build:static",
