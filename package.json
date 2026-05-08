@@ -26,7 +26,7 @@
     "vite": "8.0.10"
   },
   "name": "apps",
-  "packageManager": "pnpm@10.33.3",
+  "packageManager": "pnpm@11.0.5",
   "pnpm": {
     "ignoredBuiltDependencies": [
       "@sentry/cli",
