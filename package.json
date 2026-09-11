@@ -26,7 +26,7 @@
     "vite": "8.2.2"
   },
   "name": "apps",
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@12.4.0",
   "private": true,
   "scripts": {
     "build": "pnpm run build:static",
