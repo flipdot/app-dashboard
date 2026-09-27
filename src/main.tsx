@@ -13,6 +13,8 @@ if (import.meta.env.PROD) {
     Sentry.init({
         dsn: "https://7976fc906df26e2865ad329d909f52f5@sentry.flipdot.org/6",
         allowUrls: [/https:\/\/apps\.flipdot\.org/],
+        // v11 lets Relay infer the user's IP by default; keep it off as before.
+        dataCollection: {userInfo: false},
         integrations: [Sentry.captureConsoleIntegration()],
     });
 }
