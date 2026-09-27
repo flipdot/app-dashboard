@@ -13,7 +13,11 @@ if (import.meta.env.PROD) {
     Sentry.init({
         dsn: "https://7976fc906df26e2865ad329d909f52f5@sentry.flipdot.org/6",
         allowUrls: [/https:\/\/apps\.flipdot\.org/],
-        integrations: [Sentry.captureConsoleIntegration()],
+        // v11 lets Relay infer the user's IP by default; keep it off as before.
+        dataCollection: {userInfo: false},
+        // v11 attaches stack traces to captured messages, which makes every
+        // console call count as an error for release health.
+        integrations: [Sentry.captureConsoleIntegration({levels: ["error"]})],
     });
 }
 
