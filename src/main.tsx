@@ -15,7 +15,9 @@ if (import.meta.env.PROD) {
         allowUrls: [/https:\/\/apps\.flipdot\.org/],
         // v11 lets Relay infer the user's IP by default; keep it off as before.
         dataCollection: {userInfo: false},
-        integrations: [Sentry.captureConsoleIntegration()],
+        // v11 attaches stack traces to captured messages, which makes every
+        // console call count as an error for release health.
+        integrations: [Sentry.captureConsoleIntegration({levels: ["error"]})],
     });
 }
 
