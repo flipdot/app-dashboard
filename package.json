@@ -23,10 +23,10 @@
     "globals": "17.13.0",
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.1",
-    "vite": "8.3.2"
+    "vite": "8.3.3"
   },
   "name": "apps",
-  "packageManager": "pnpm@12.9.1",
+  "packageManager": "pnpm@12.10.0",
   "private": true,
   "scripts": {
     "build": "pnpm run build:static",
