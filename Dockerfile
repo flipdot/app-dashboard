@@ -1,7 +1,7 @@
 #############
 # Create base image.
 
-FROM node:24.22.1-alpine AS base-image
+FROM node:26.12.1-alpine AS base-image
 
 # The `CI` environment variable must be set for pnpm to run in headless mode
 ENV CI=true
@@ -10,7 +10,7 @@ WORKDIR /srv/app/
 
 RUN apk update \
     && apk add --no-cache git \
-    && corepack enable
+    && npm i -g corepack && corepack enable
 
 
 #############
