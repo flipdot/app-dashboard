@@ -10,7 +10,7 @@ WORKDIR /srv/app/
 
 RUN apk update \
     && apk add --no-cache git \
-    && corepack enable
+    && npm i -g corepack && corepack enable
 
 
 #############
