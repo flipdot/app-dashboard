@@ -5,10 +5,14 @@ import AppCard, {OIDCApplication} from "./AppCard.tsx";
 
 function Home() {
 
-    const {data, isLoading} = useSWR('https://login.flipdot.org/realms/flipdot/account/applications');
+    const {data, error, isLoading} = useSWR<OIDCApplication[]>('https://login.flipdot.org/realms/flipdot/account/applications');
 
     if (isLoading) {
         return <Spinner size="lg"/>
+    }
+
+    if (error || !Array.isArray(data)) {
+        return <p>Anwendungen konnten nicht geladen werden.</p>
     }
 
     function isSpaceUrl(url: string): boolean {
